@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>许昌来起信息科技有限公司</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchWeather();
+        });
+
+        function fetchWeather() {
+            const apiKey = "S4cJvIJC7ntEhMHFr";
+            const location = "许昌";
+            const url = `https://api.seniverse.com/v3/weather/daily.json?key=${apiKey}&location=${location}&language=zh-Hans&unit=c&start=0&days=5`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.results && data.results.length > 0) {
+                        const weatherData = data.results[0].daily;
+                        let weatherHtml = "<h2>许昌未来五天天气预报</h2><ul>";
+                        
+                        weatherData.forEach(day => {
+                            weatherHtml += `<li>${day.date} - ${day.text_day}, 温度: ${day.low}°C ~ ${day.high}°C</li>`;
+                        });
+
+                        weatherHtml += "</ul>";
+                        document.getElementById("weather").innerHTML = weatherHtml;
+                    } else {
+                        document.getElementById("weather").innerHTML = "<p>天气信息获取失败</p>";
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("weather").innerHTML = "<p>无法加载天气数据</p>";
+                    console.error("天气API错误:", error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>许昌来起信息科技有限公司</h1>
+    </header>
+
+    <section>
+        <h2>公司介绍</h2>
+        <p>
+            许昌来起信息科技有限公司是一家专业的互联网技术服务提供商，致力于为企业和个人提供优质的数字化解决方案。公司核心业务包括：
+        </p>
+        <ul>
+            <li><strong>网站开发：</strong>提供企业官网、电商平台、个人博客等各类网站的设计与开发。</li>
+            <li><strong>软件定制开发：</strong>根据客户需求，量身定制适合其业务的管理系统和应用程序。</li>
+            <li><strong>小程序与APP开发：</strong>专注于微信小程序、Android 和 iOS 应用的开发与优化。</li>
+            <li><strong>SEO与网络营销：</strong>助力企业提升搜索引擎排名，精准投放广告，扩大品牌影响力。</li>
+            <li><strong>服务器与云服务：</strong>提供服务器部署、运维及云计算解决方案，确保系统稳定高效运行。</li>
+        </ul>
+        <p>
+            我们秉承“技术驱动创新，服务创造价值”的理念，致力于为客户提供高效、稳定、安全的互联网解决方案。
+        </p>
+    </section>
+
+    <section>
+        <h2>产品与服务</h2>
+        <p>我们提供以下专业服务，以满足不同企业的互联网需求：</p>
+        <ul>
+            <li><strong>企业官网建设：</strong> 设计现代化、响应式布局的网站，助力品牌展示。</li>
+            <li><strong>电商平台开发：</strong> 从商城系统到支付集成，打造稳定高效的在线交易平台。</li>
+            <li><strong>企业管理系统：</strong> 定制 CRM、ERP、OA 等系统，提高企业运营效率。</li>
+            <li><strong>移动应用开发：</strong> 提供 iOS 和 Android 原生及跨平台 APP 开发服务。</li>
+            <li><strong>数据分析与AI解决方案：</strong> 结合大数据分析、机器学习，提供智能化数据支持。</li>
+        </ul>
+        <p>我们始终坚持创新，采用最新技术，确保产品符合市场需求，为客户创造更大价值。</p>
+    </section>
+
+    <section>
+        <h2>客户评价</h2>
+        <p>部分客户对我们的服务给予了高度评价：</p>
+        <blockquote>
+            “许昌来起信息科技有限公司的团队非常专业，他们为我们公司开发的电商平台运行稳定，用户体验极佳。”<br>
+            <strong>—— 张先生，某电商公司CEO</strong>
+        </blockquote>
+        <blockquote>
+            “合作过程中沟通顺畅，交付的企业管理系统极大地提升了我们的运营效率，期待未来更多合作！”<br>
+            <strong>—— 李女士，某制造企业负责人</strong>
+        </blockquote>
+        <blockquote>
+            “感谢贵公司为我们提供的SEO优化服务，短短几个月，我们的搜索排名提升了数倍，业务量大幅增长。”<br>
+            <strong>—— 王总，某科技公司市场部</strong>
+        </blockquote>
+    </section>
+
+    <section id="weather">
+        <h2>加载中...</h2>
+    </section>
+
+    <footer>
+        <p>备案号：<a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2024040779号-2</a></p>
+    </footer>
+</body>
+</html>
